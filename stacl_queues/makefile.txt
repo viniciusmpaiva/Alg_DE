@@ -1,0 +1,9 @@
+main: main.c stack_queues.c stack_queues.h
+	gcc -o main main.c stack_queues.c
+
+clean:
+	rm main
+
+exec:
+	gcc -o main main.c stack_queues.c
+	./main

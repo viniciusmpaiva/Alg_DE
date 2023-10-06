@@ -13,7 +13,7 @@ int main(){
         scanf("%d"<&K); 
         int *a = createAray(K);
         int *pops = createAray(K);
-        int *enqueues = createAray(K);
+        int *denqueues = createAray(K);
         int *removes = createAray(K);
 
         char insert[1] = "i";
@@ -26,17 +26,30 @@ int main(){
             scanf("%d",&e);
             if(strcmp(op,insert) == 0){
                 pushStack(e,S);
+                enqueue(e,Q);
             }else if(strcmp(op,remove) == 0){
                 pops[j]=popStack(S);
-                enqueues[j]=dequeue(Q);
+                denqueues[j]=dequeue(Q);
                 removes[j] = e; 
             }
         }
-
+        int same_pops = 0;
+        int same_dequeues = 0;
         for(int m=0;m<K;m++){
             if(pops[m] == removes[m]){
-                //Não pode ser pilha
+                same_pops++;
+            }else if(denqueues[m] == removes[m]){
+                same_dequeues++;
             }
+        }
+        if(same_pops == K && same_dequeues != K){
+            printf("pilha");
+        }else if(same_dequeues == K && same_pops !=K){
+            printf("fila");
+        }else if (same_dequeues ==K && same_pops ==K){
+            printf("indefinido");
+        }else{
+            printf("impossivel");
         }
     }
 

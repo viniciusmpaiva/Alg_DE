@@ -3,6 +3,12 @@
 #include<string.h>
 #include "stack_queues.h"
 
+#define PILHA 1
+#define FILA 2
+#define INDEFINIDO 3
+#define IMPOSSIVEL 4
+
+
 
 void initStack(t_stack *S){
     S->top = NULL;
@@ -17,7 +23,7 @@ void pushStack(int e, t_stack *S){
     t_pointer_stack a = (t_pointer_stack) malloc(sizeof(t_node_stack));
     if(a==NULL){
         printf("There's no space :(");
-        return NULL;
+        return;
     }
 
     a->element = e;
@@ -39,7 +45,7 @@ int emptyStack(t_stack *S){
 int popStack(t_stack *S){
     if(emptyStack(S)){
         printf("Stack is empty!");
-        return NULL;
+        return 0;
     }
 
     t_pointer_stack a = S->top;
@@ -68,7 +74,7 @@ void enqueue(int e, t_queue *Q){
 int dequeue(t_queue*Q){
     if(Q->front == NULL){
         printf("Queue is empty");
-        return NULL;
+        return 0;
     }
     t_pointer_queue temp;
     temp = Q->front;
@@ -88,6 +94,34 @@ int *createAray(int n){
 }
 
 
+void clearStack(t_stack *S){
+    t_pointer_stack a = S->top;
+    if(a == NULL){
+        printf("Stack is empty");
+        return;
+    }
+    while(a!=NULL){
+        t_pointer_stack temp = a;
+        a = a->nxt;
+        free(temp);
+    }
+    S->top = NULL;
+}
+
+void clearQueue(t_queue *Q){
+    t_pointer_queue a = Q->front;
+    if(a==NULL){
+        printf("Queue is empty");
+        return;
+    }
+    while(a!=NULL){
+        t_pointer_queue temp = a;
+        a = a->nxt;
+        free(temp);
+    }
+    Q->front = NULL;
+    Q->rear = NULL;
+}
 
 
 

@@ -35,6 +35,7 @@ int popStack(t_stack *S);
 int *createAray(int n);
 void enqueue(int e, t_queue *Q);
 int dequeue(t_queue *Q);
-
+void clearStack(t_stack *S);
+void clearQueue(t_queue *Q);
 
 #endif

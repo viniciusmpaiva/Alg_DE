@@ -19,7 +19,6 @@ void initStack(t_stack *S){
 
 
 void pushStack(int e, t_stack *S){
-    initStack(S);
     t_pointer_stack a = (t_pointer_stack) malloc(sizeof(t_node_stack));
     if(a==NULL){
         printf("There's no space :(");
@@ -58,6 +57,11 @@ int popStack(t_stack *S){
     return e;
 }
 
+void initQueue(t_queue *Q){
+    Q->front = NULL;
+    Q->rear=NULL;
+}
+
 void enqueue(int e, t_queue *Q){
     t_pointer_queue a =(t_pointer_queue) malloc(sizeof(t_node_queue));
     a->element = e;
@@ -84,7 +88,7 @@ int dequeue(t_queue*Q){
     return e;
 }
 
-int *createAray(int n){
+int *createArray(int n){
     int *a = (int*)malloc(sizeof(int)*n);
     if(a==NULL){
         printf("No space :(");

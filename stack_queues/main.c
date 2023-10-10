@@ -11,41 +11,47 @@ int main(){
     int N; 
     //N - Numero de Casos
     scanf("%d",&N);
-    int *output = createAray(N);
-    t_stack *S;
-    t_queue *Q;
-    char insert[1] = "i";
-    char remove[1] = "r";
-    char option[1];
+    int *output = createArray(N);
+    char insert[] = "i";
+    char remove[] = "r";
+    char option[10];
     for(int i=0;i<N;i++){
         int K;
+        t_stack S;
+        initStack(&S);
+        t_queue Q;
+        initQueue(&Q);
         //Numero de operações de inserção e remoção a serem efetuadas 
         int operations;
         scanf("%d",&operations);
-        int *pops = createAray(operations);
-        int *dequeues = createAray(operations);
-        int *removes = createAray(operations);
+        int *pops = createArray(operations);
+        int *dequeues = createArray(operations);
+        int *removes = createArray(operations);
         int num_removes=0;
-        int *a = createAray(operations);
+        int *a = createArray(operations);
+        int first_remove = operations;
         for(int j=0; j<operations;j++){
-            scanf("%c",option);
-            scanf("%d",&a[j]);
+            scanf("%s",option);
             if(strcmp(option,insert) == 0){
-                pushStack(a[j],S);
-                enqueue(a[j],Q);
-                printf("\n%d\n",a[j]);
+                scanf("%d",&a[j]);
+                pushStack(a[j],&S);
+                enqueue(a[j],&Q);
             }else if(strcmp(option,remove) == 0){
-                pops[j]=popStack(S);
-                dequeues[j]=dequeue(Q);
+                scanf("%d",&a[j]);
+                pops[j]=popStack(&S);
+                dequeues[j]=dequeue(&Q);
                 removes[j] = a[j];
-                printf("\n%d\n",a[j]);
+                if(j<first_remove){
+                    first_remove = j;
+                }
                 num_removes++; 
             }
         }
-        free(a);
+
         int same_pops = 0;
         int same_dequeues = 0;
-        for(int m=0;m<num_removes;m++){
+        //Ta dando problema aqui!!!!!!!!
+        for(int m=first_remove;m<(num_removes+first_remove);m++){
             if(pops[m] == removes[m]){
                 same_pops++;
             }
@@ -62,23 +68,24 @@ int main(){
         }else{
             output[i] = IMPOSSIVEL;
         }
+        clearStack(&S);
+        clearQueue(&Q);
+        free(a);
         free(pops);
         free(dequeues);
         free(removes);
-        clearStack(S);
-        clearQueue(Q);
     }
     
 
     for(int i=0; i<N;i++){
         if(output[i] == PILHA){
-            printf("pilha");
+            printf("\npilha ");
         }else if(output[i] == FILA){
-            printf("fila");
+            printf("\nfila ");
         }else if(output[i] == INDEFINIDO){
-            printf("indefinido");
+            printf("\nindefinido ");
         }else if(output[i] == IMPOSSIVEL){
-            printf("impossivel");
+            printf("\nimpossivel ");
         }
     }
     

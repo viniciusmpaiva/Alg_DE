@@ -32,10 +32,11 @@ void initStack(t_stack *S);
 void pushStack(int e, t_stack *S);
 int emptyStack(t_stack *S);
 int popStack(t_stack *S);
-int *createAray(int n);
+int *createArray(int n);
 void enqueue(int e, t_queue *Q);
 int dequeue(t_queue *Q);
 void clearStack(t_stack *S);
 void clearQueue(t_queue *Q);
+void initQueue(t_queue *Q);
 
 #endif

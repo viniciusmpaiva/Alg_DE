@@ -16,7 +16,6 @@ int main(){
     char remove[] = "r";
     char option[10];
     for(int i=0;i<N;i++){
-        int K;
         t_stack S;
         initStack(&S);
         t_queue Q;

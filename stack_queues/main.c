@@ -37,27 +37,30 @@ int main(){
                 pushStack(a[j],&S);
                 enqueue(a[j],&Q);
             }else if(strcmp(option,remove) == 0){
-                scanf("%d",&a[j]);
-                pops[j]=popStack(&S);
-                dequeues[j]=dequeue(&Q);
-                removes[j] = a[j];
-                if(j<first_remove){
-                    first_remove = j;
+                scanf("%d",&a[num_removes]);
+                pops[num_removes]=popStack(&S);
+                dequeues[num_removes]=dequeue(&Q);
+                removes[num_removes] = a[num_removes];
+                if(num_removes<first_remove){
+                    first_remove = num_removes;
                 }
                 num_removes++; 
             }
         }
-
+        int ind_first_remove = num_removes+first_remove;
         int same_pops = 0;
         int same_dequeues = 0;
         //Ta dando problema aqui!!!!!!!!
-        for(int m=first_remove;m<(num_removes+first_remove);m++){
-            if(pops[m] == removes[m]){
+        while(first_remove<ind_first_remove){
+            
+            if(pops[first_remove] == removes[first_remove]){
                 same_pops++;
             }
-            if(dequeues[m] == removes[m]){
+            
+            if(dequeues[first_remove] == removes[first_remove]){
                 same_dequeues++;
             }
+            first_remove++;
         }
         if(same_pops == num_removes && same_dequeues != num_removes){
             output[i] = PILHA;

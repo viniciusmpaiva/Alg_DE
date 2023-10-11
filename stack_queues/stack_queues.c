@@ -43,7 +43,6 @@ int emptyStack(t_stack *S){
 
 int popStack(t_stack *S){
     if(emptyStack(S)){
-        printf("Stack is empty!");
         return 0;
     }
 
@@ -63,6 +62,9 @@ void initQueue(t_queue *Q){
 }
 
 void enqueue(int e, t_queue *Q){
+    if(Q->front == NULL){
+        initQueue(Q);
+    }
     t_pointer_queue a =(t_pointer_queue) malloc(sizeof(t_node_queue));
     a->element = e;
     a->nxt = NULL;
@@ -77,7 +79,6 @@ void enqueue(int e, t_queue *Q){
 
 int dequeue(t_queue*Q){
     if(Q->front == NULL){
-        printf("Queue is empty");
         return 0;
     }
     t_pointer_queue temp;
@@ -101,7 +102,6 @@ int *createArray(int n){
 void clearStack(t_stack *S){
     t_pointer_stack a = S->top;
     if(a == NULL){
-        printf("Stack is empty");
         return;
     }
     while(a!=NULL){
@@ -115,7 +115,6 @@ void clearStack(t_stack *S){
 void clearQueue(t_queue *Q){
     t_pointer_queue a = Q->front;
     if(a==NULL){
-        printf("Queue is empty");
         return;
     }
     while(a!=NULL){

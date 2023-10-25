@@ -4,6 +4,7 @@
 
 typedef struct t_node *t_pointer;
 
+
 typedef struct t_node{
     char key[11];
     char* value;

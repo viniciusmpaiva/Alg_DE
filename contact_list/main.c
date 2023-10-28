@@ -9,23 +9,22 @@ int main()
     char op;
     t_skiplist sl;
     initSList(&sl);
-    t_pointer res;
-    for (;;)
+    while(1)
     {
         op = getchar();
         if(op=='0'){
             clearSlist(&sl);
             return 0;
         }
+        t_pointer search;
         char key[11];
         char number[10];
         switch (op)
         {
         case 'I': 
-            scanf("%s", key);
-            scanf("%s", number);
-            res = searchSlist(key,&sl);
-            if(res!=NULL){
+            scanf("%s %s", key, number);
+            search = searchSlist(key,&sl);
+            if(search!=NULL){
                 printf("Contatinho ja inserido\n");
             }else{
                 insertSlist(key, number, &sl);
@@ -33,35 +32,39 @@ int main()
             break;
         case 'P':
             scanf("%s", key);
-            res = searchSlist(key, &sl);
-            if (res == NULL)
+            search = searchSlist(key, &sl);
+            if (search == NULL)
             {
-                printf("contatinho nao encontrado\n");
+                printf("Contatinho nao encontrado\n");
             }
             else
             {
-                printf("Contatinho encontrado: telefone %s\n", res->value);
+                printf("Contatinho encontrado: telefone %s\n", search->value);
             }
             break;
-        case 'D':
+        case 'R':
             scanf("%s", key);
-            int del;
-            del = deleteSlist(key, &sl);
-            if (del == 1)
-            {
+            search = searchSlist(key,&sl);   
+            if(search  == NULL){
+                printf("Operacao invalida: contatinho nao encontrado\n");
+                break;
+            }        
+            deleteSlist(key, &sl);
+            break;
+        
+        case 'A':
+            int search_int;
+            scanf("%s", key);
+            scanf("%s", number);
+            search_int = modifySl(key, number, &sl);
+            if(search_int == 0){
                 printf("Operacao invalida: contatinho nao encontrado\n");
             }
             break;
         
-        case 'A':
-            int found;
-            scanf("%s", key);
-            scanf("%s", number);
-            found = modifySl(key, number, &sl);
-            if(found == 0){
-                printf("Operacao invalida: contatinho nao encontrado\n");
-            }
+        default:
             break;
         }
     }
+    return 0;
 }

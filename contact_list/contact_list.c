@@ -83,35 +83,37 @@ static void freeNode(t_node *x){
     }
 }
 
-int deleteSlist(char* key, t_skiplist *sl){
+void deleteSlist(char* key, t_skiplist *sl){
     t_pointer update[SKIPLIST_MAX_LEVEL+1];
     t_pointer x = sl->header;
     for(int i=sl->level;i>=1;i--){
         while(strcmp(x->forward[i]->key,key)<0 && x->forward[i] !=sl->header){
-            x=x->forward[1];
+            x=x->forward[i];
         }
         update[i] = x;
     }
 
-    if(x->forward[1]!=sl->header)    x=x->forward[1];
+    if(x->forward[1]!=sl->header){
+        x=x->forward[1];
+    }    
     if(strcmp(x->key, key) == 0 && x!=sl->header){
         for(int i=1;i<=sl->level;i++){
             if(update[i]->forward[i] !=x){
                 break;
             }
-            update[i] ->forward[1] = x->forward[i];
+
+            update[i] ->forward[i] = x->forward[i];
         }
+
         free(x->value);
         freeNode(x);
 
-        while(sl->level>1 && sl->header->forward[sl->level] == sl->header){
+        while(sl->level > 1 && sl->header->forward[sl->level] == sl->header){
             sl->level--;
         }
-        return 0;
+        sl->size = sl->size - 1;
     }
-    return 1;
 }
-
 int modifySl(char* key, char* value,t_skiplist *sl){
     t_pointer x = searchSlist(key,sl);
     if(x==NULL){
